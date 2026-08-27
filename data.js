@@ -1,0 +1,98 @@
+// ДЕМО-ДАНІ. Поля повторюють формат, яким бот публікує оголошення в канал
+// @AutoSaleUA_Cars: місто, марка, модель, рік, пробіг, коробка, паливо, ціна,
+// контакт (юзернейм), опис, фото. Коли буде готова інтеграція з базою бота —
+// ця функція заміниться на fetch() до реального API, а решта коду не зміниться.
+const CAR_LISTINGS = [
+  {
+    id: "1",
+    type: "sale",
+    brand: "Honda",
+    model: "CR-V",
+    year: 2020,
+    mileage: 120000,
+    transmission: "Автомат",
+    fuel: "Бензин",
+    price: 23000,
+    city: "Київ",
+    seller: "glumanes",
+    description: "Один власник, повна комплектація, без ДТП. Своєчасне ТО, готовий до огляду.",
+    color: "#0956f5"
+  },
+  {
+    id: "2",
+    type: "sale",
+    brand: "Honda",
+    model: "CR-V",
+    year: 2020,
+    mileage: 98000,
+    transmission: "Автомат",
+    fuel: "Бензин",
+    price: 21500,
+    city: "Львів",
+    seller: "glumanes",
+    description: "Друга власниця, гаражне зберігання, свіжа гумма на 4 сезони.",
+    color: "#09a63a"
+  },
+  {
+    id: "3",
+    type: "sale",
+    brand: "Toyota",
+    model: "Prius",
+    year: 2008,
+    mileage: 380000,
+    transmission: "Автомат",
+    fuel: "Гібрид",
+    price: 4500,
+    city: "Одеса",
+    seller: "glumanes",
+    description: "Економічний гібрид для таксі або міста. Батарея в нормі, є діагностика.",
+    color: "#ff9b00"
+  },
+  {
+    id: "4",
+    type: "sale",
+    brand: "Toyota",
+    model: "Land Cruiser",
+    year: 2022,
+    mileage: 45000,
+    transmission: "Автомат",
+    fuel: "Дизель",
+    price: 68000,
+    city: "Київ",
+    seller: "glumanes",
+    description: "Топова комплектація, український облік, всі ТО у офіційного дилера.",
+    color: "#731cf0"
+  },
+  {
+    id: "5",
+    type: "rent",
+    brand: "Toyota",
+    model: "Prius",
+    year: 2019,
+    mileage: 150000,
+    transmission: "Автомат",
+    fuel: "Гібрид",
+    price: 25,
+    priceUnit: "$/добу",
+    city: "Київ",
+    seller: "glumanes",
+    description: "Оренда для роботи в таксі-сервісах. Повний бак при видачі.",
+    color: "#087e9b"
+  },
+  {
+    id: "6",
+    type: "rent",
+    brand: "Volkswagen",
+    model: "Golf",
+    year: 2018,
+    mileage: 110000,
+    transmission: "Механіка",
+    fuel: "Бензин",
+    price: 20,
+    priceUnit: "$/добу",
+    city: "Львів",
+    seller: "glumanes",
+    description: "Компактний і економний, ідеальний для міста.",
+    color: "#e51d48"
+  }
+];

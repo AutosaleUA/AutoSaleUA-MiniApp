@@ -3,21 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06101f">
   <title>AutoSale UA</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="app">
-    <img class="approved-design" src="autosale-home.png" alt="AutoSale UA">
+  <main class="app" aria-label="AutoSale UA">
+    <div class="visual">
+      <img src="autosale-home.png" alt="" class="scene">
+      <div class="ui-layer">
+        <button class="action action-buy" data-section="buy" aria-label="Купити авто">
+          <span class="icon">🚘</span>
+          <span class="copy"><strong>Купити авто</strong><small>Оголошення про продаж</small></span>
+          <span class="badge">🔥&nbsp; Найбільший вибір</span><span class="arrow">›</span>
+        </button>
 
-    <!-- Transparent interaction zones over the approved visual design -->
-    <button class="hotspot buy" aria-label="Купити авто"></button>
-    <button class="hotspot rent" aria-label="Орендувати авто"></button>
-    <button class="hotspot sell" aria-label="Продати авто"></button>
-    <button class="hotspot give-rent" aria-label="Здати авто в оренду"></button>
-    <button class="hotspot insurance" aria-label="Страхування авто"></button>
+        <button class="action action-rent" data-section="rent" aria-label="Орендувати авто">
+          <span class="icon">🔑</span>
+          <span class="copy"><strong>Орендувати авто</strong><small>Авто, доступні для оренди</small></span>
+          <span class="badge">💰&nbsp; Вигідні ціни</span><span class="arrow">›</span>
+        </button>
+
+        <button class="action action-sell" data-section="sell" aria-label="Продати авто">
+          <span class="icon">🚗</span>
+          <span class="copy"><strong>Продати авто</strong><small>Розмістити оголошення</small></span>
+          <span class="badge">⚡&nbsp; Швидко і зручно</span><span class="arrow">›</span>
+        </button>
+
+        <button class="action action-give-rent" data-section="give-rent" aria-label="Здати авто в оренду">
+          <span class="icon">🔑</span>
+          <span class="copy"><strong>Здати авто в оренду</strong><small>Розмістити оголошення</small></span>
+          <span class="badge">📈&nbsp; Заробляйте на авто</span><span class="arrow">›</span>
+        </button>
+
+        <button class="action action-insurance" data-section="insurance" aria-label="Страхування авто">
+          <span class="icon">🛡️</span>
+          <span class="copy"><strong>Страхування авто</strong><small>Отримати найвигіднішу ціну</small></span>
+          <span class="badge">🛡️&nbsp; Найкращі пропозиції</span><span class="arrow">›</span>
+        </button>
+
+        <div class="benefits" aria-label="Переваги">
+          <div>🛡️ <span>Надійно</span></div>
+          <div>⏱️ <span>Швидко</span></div>
+          <div>♡ <span>Зручно в Telegram</span></div>
+        </div>
+      </div>
+    </div>
   </main>
-
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="app.js"></script>
 </body>
