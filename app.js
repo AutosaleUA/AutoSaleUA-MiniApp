@@ -3,37 +3,24 @@ const tg = window.Telegram?.WebApp;
 if (tg) {
   tg.ready();
   tg.expand();
-  if (tg.setHeaderColor) tg.setHeaderColor("#f7f8fa");
-  if (tg.setBackgroundColor) tg.setBackgroundColor("#f7f8fa");
+  try {
+    tg.setHeaderColor("#06101f");
+    tg.setBackgroundColor("#f4f8fc");
+  } catch (_) {}
 }
 
-// These are intentionally placeholders.
-// We will replace them with the real bot/channel/group routes
-// after the Telegram infrastructure is defined.
-const ROUTES = {
-  buy: null,        // Mini App feed: sale listings
-  rent: null,       // Mini App feed: rental listings
-  sell: null,       // Bot: create sale listing
-  "give-rent": null,// Bot: create rental listing
-  insurance: null   // Bot: insurance request
-};
-
-function openRoute(route) {
-  if (!route) {
-    tg?.showAlert?.("Цей розділ підключимо на наступному етапі.");
-    return;
+function openSection(name) {
+  // Temporary navigation hooks.
+  // We will replace these with the real bots/channels after the visual screen is approved.
+  if (tg?.HapticFeedback) {
+    tg.HapticFeedback.impactOccurred("light");
   }
 
-  // Telegram links can be opened directly from a Mini App.
-  if (tg?.openTelegramLink && route.startsWith("https://t.me/")) {
-    tg.openTelegramLink(route);
-  } else {
-    window.location.href = route;
-  }
+  console.log("AutoSale UA section:", name);
 }
 
-document.querySelectorAll("[data-action]").forEach((button) => {
-  button.addEventListener("click", () => {
-    openRoute(ROUTES[button.dataset.action]);
-  });
-});
+document.querySelector(".buy").addEventListener("click", () => openSection("buy"));
+document.querySelector(".rent").addEventListener("click", () => openSection("rent"));
+document.querySelector(".sell").addEventListener("click", () => openSection("sell"));
+document.querySelector(".give-rent").addEventListener("click", () => openSection("give-rent"));
+document.querySelector(".insurance").addEventListener("click", () => openSection("insurance"));
