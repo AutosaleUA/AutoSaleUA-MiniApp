@@ -2,34 +2,42 @@
 html,body{margin:0;padding:0;width:100%;min-height:100%;background:#f4f8fc}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;overflow-x:hidden}
 .app{width:100%;max-width:1024px;margin:0 auto}
-.visual{position:relative;width:100%;line-height:1}
+.hero{width:100%;line-height:1}
 .scene{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
-.ui-layer{position:absolute;inset:0;pointer-events:none}
-.action{position:absolute;left:6.3%;width:87.4%;height:7.87%;border:1px solid rgba(255,255,255,.28);border-radius:2.2vw;display:flex;align-items:center;padding:0 3.1%;gap:1.6%;color:#fff;text-align:left;font:inherit;cursor:pointer;pointer-events:auto;box-shadow:0 3px 10px rgba(0,0,0,.18);overflow:hidden}
-.action:active{transform:translateY(1px);filter:brightness(.95)}
-.action-buy{top:52.6%;background:linear-gradient(90deg,#3f5f96,#2c4570)}
-.action-rent{top:61%;background:linear-gradient(90deg,#4f7d5e,#385c44)}
-.action-sell{top:69.24%;background:linear-gradient(90deg,#b9793f,#96602f)}
-.action-give-rent{top:77.48%;background:linear-gradient(90deg,#6a5b96,#4a3d70)}
-.action-insurance{top:85.71%;background:linear-gradient(90deg,#4a7f8c,#345c66)}
-.icon{height:64%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.96);display:grid;place-items:center;flex:none}
-.icon svg{width:56%;height:56%}
-.copy{display:flex;flex-direction:column;min-width:0;line-height:1.05;flex:1}
-.copy strong{font-size:clamp(19px,2.55vw,31px);font-weight:750;white-space:nowrap}
-.copy small{font-size:clamp(11px,1.55vw,18px);font-weight:500;margin-top:.18em;white-space:nowrap}
-.badge{flex:none;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:.55em 1em;font-size:clamp(10px,1.25vw,15px);white-space:nowrap;color:#fff}
-.arrow{font-size:clamp(32px,3.6vw,46px);font-weight:300;line-height:.7;margin-left:1%;flex:none}
-.benefits{position:absolute;left:6.2%;right:6.2%;top:94.11%;height:5.35%;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5%;pointer-events:none}
-.benefits div{background:#fff;border-radius:1.2vw;display:flex;align-items:center;justify-content:center;gap:.7em;color:#2c4570;font-size:clamp(12px,1.55vw,18px);font-weight:650;box-shadow:0 2px 7px rgba(0,0,0,.1)}
-@media (max-width:560px){
-  .action{left:5.9%;width:88.2%;height:7.97%;border-radius:14px;padding:0 2.7%;gap:1.3%}
-  .icon{height:60%}
-  .icon svg{width:58%;height:58%}
-  .copy strong{font-size:clamp(14px,4.2vw,20px)}
-  .copy small{font-size:clamp(8px,2.65vw,13px)}
-  .badge{font-size:clamp(7px,2.1vw,10px);padding:.48em .72em}
-  .arrow{font-size:32px}
-  .benefits{gap:1.2%;top:94.22%;height:5.24%}
-  .benefits div{font-size:clamp(8px,2.7vw,12px);border-radius:8px}
+
+.actions-panel{background:linear-gradient(180deg,#b7c0d6 0%,#dbe3ef 45px,#f4f8fc 130px);padding:14px 4% 22px;display:flex;flex-direction:column;gap:9px}
+
+.action{position:relative;width:100%;min-height:62px;border:1px solid rgba(255,255,255,.28);border-radius:16px;display:flex;align-items:center;padding:9px 3.5%;gap:11px;color:#fff;text-align:left;font:inherit;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.16)}
+.action:active{transform:translateY(1px);filter:brightness(.96)}
+
+.action-buy{background:linear-gradient(90deg,#3f5f96,#2c4570)}
+.action-rent{background:linear-gradient(90deg,#4f7d5e,#385c44)}
+.action-sell{background:linear-gradient(90deg,#b9793f,#96602f)}
+.action-give-rent{background:linear-gradient(90deg,#6a5b96,#4a3d70)}
+.action-insurance{background:linear-gradient(90deg,#4a7f8c,#345c66)}
+
+.icon{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.96);display:grid;place-items:center;flex:none}
+.icon svg{width:22px;height:22px}
+
+.copy{display:flex;flex-direction:column;min-width:0;line-height:1.2;flex:1}
+.copy strong{font-size:16px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.copy small{font-size:11.5px;font-weight:500;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.9}
+
+.badge{flex:none;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:.45em .8em;font-size:10.5px;font-weight:700;color:#fff;white-space:nowrap}
+.arrow{font-size:22px;font-weight:300;line-height:.7;margin-left:2px;flex:none}
+
+.benefits{margin-top:5px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.benefits div{background:#fff;border-radius:12px;padding:10px 4px;display:flex;align-items:center;justify-content:center;gap:.5em;color:#2c4570;font-size:12px;font-weight:650;box-shadow:0 2px 7px rgba(0,0,0,.08);text-align:center}
+
+@media (min-width:600px){
+  .actions-panel{padding:20px 4.5% 28px;gap:11px}
+  .action{min-height:76px;border-radius:18px;padding:12px 3.2%}
+  .icon{width:56px;height:56px}
+  .icon svg{width:28px;height:28px}
+  .copy strong{font-size:20px}
+  .copy small{font-size:13.5px;margin-top:3px}
+  .badge{font-size:13px;padding:.55em 1em}
+  .arrow{font-size:30px}
+  .benefits div{font-size:14px;padding:12px 4px;border-radius:14px}
 }
 @media (min-width:700px){.app{box-shadow:0 0 40px rgba(0,0,0,.08)}}
