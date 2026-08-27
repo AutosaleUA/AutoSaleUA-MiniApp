@@ -7,23 +7,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;ov
 .ui-layer{position:absolute;inset:0;pointer-events:none}
 .action{position:absolute;left:6.3%;width:87.4%;height:7.87%;border:1px solid rgba(255,255,255,.28);border-radius:2.2vw;display:flex;align-items:center;padding:0 3.1%;gap:1.6%;color:#fff;text-align:left;font:inherit;cursor:pointer;pointer-events:auto;box-shadow:0 3px 10px rgba(0,0,0,.18);overflow:hidden}
 .action:active{transform:translateY(1px);filter:brightness(.95)}
-.action-buy{top:52.6%;background:linear-gradient(90deg,#0956f5,#0a36c9)}
-.action-rent{top:61%;background:linear-gradient(90deg,#09a63a,#07852f)}
-.action-sell{top:69.24%;background:linear-gradient(90deg,#ff9b00,#f06d00)}
-.action-give-rent{top:77.48%;background:linear-gradient(90deg,#731cf0,#4c08c4)}
-.action-insurance{top:85.71%;background:linear-gradient(90deg,#087e9b,#00597d)}
-.icon{width:8.2%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.96);display:grid;place-items:center;font-size:clamp(18px,2.5vw,30px);flex:none}
+.action-buy{top:52.6%;background:linear-gradient(90deg,#3f5f96,#2c4570)}
+.action-rent{top:61%;background:linear-gradient(90deg,#4f7d5e,#385c44)}
+.action-sell{top:69.24%;background:linear-gradient(90deg,#b9793f,#96602f)}
+.action-give-rent{top:77.48%;background:linear-gradient(90deg,#6a5b96,#4a3d70)}
+.action-insurance{top:85.71%;background:linear-gradient(90deg,#4a7f8c,#345c66)}
+.icon{height:64%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.96);display:grid;place-items:center;flex:none}
+.icon svg{width:56%;height:56%}
 .copy{display:flex;flex-direction:column;min-width:0;line-height:1.05;flex:1}
 .copy strong{font-size:clamp(19px,2.55vw,31px);font-weight:750;white-space:nowrap}
 .copy small{font-size:clamp(11px,1.55vw,18px);font-weight:500;margin-top:.18em;white-space:nowrap}
-.badge{flex:none;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.13);border-radius:999px;padding:.55em 1em;font-size:clamp(10px,1.25vw,15px);white-space:nowrap}
+.badge{flex:none;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:.55em 1em;font-size:clamp(10px,1.25vw,15px);white-space:nowrap;color:#fff}
 .arrow{font-size:clamp(32px,3.6vw,46px);font-weight:300;line-height:.7;margin-left:1%;flex:none}
 .benefits{position:absolute;left:6.2%;right:6.2%;top:94.11%;height:5.35%;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5%;pointer-events:none}
-.benefits div{background:rgba(255,255,255,.92);border-radius:1.2vw;display:flex;align-items:center;justify-content:center;gap:.7em;color:#111;font-size:clamp(12px,1.55vw,18px);font-weight:650;box-shadow:0 2px 7px rgba(0,0,0,.1)}
-.benefits div:first-child{color:#188b39}.benefits div:last-child{color:#e51d48}
+.benefits div{background:#fff;border-radius:1.2vw;display:flex;align-items:center;justify-content:center;gap:.7em;color:#2c4570;font-size:clamp(12px,1.55vw,18px);font-weight:650;box-shadow:0 2px 7px rgba(0,0,0,.1)}
 @media (max-width:560px){
   .action{left:5.9%;width:88.2%;height:7.97%;border-radius:14px;padding:0 2.7%;gap:1.3%}
-  .icon{width:8.7%;font-size:18px}
+  .icon{height:60%}
+  .icon svg{width:58%;height:58%}
   .copy strong{font-size:clamp(14px,4.2vw,20px)}
   .copy small{font-size:clamp(8px,2.65vw,13px)}
   .badge{font-size:clamp(7px,2.1vw,10px);padding:.48em .72em}
