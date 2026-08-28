@@ -142,6 +142,7 @@ function renderList() {
         <button class="iconbtn" id="backHome" aria-label="Назад">‹</button>
         <h1>Каталог <span class="brand">AutoSale</span> <span class="brand-ua">UA</span><small>${state.type === "rent" ? "Оренда авто" : "Купівля авто"}</small></h1>
       </div>
+      <div class="flag-stripe"><span></span><span></span></div>
     </div>
     <div class="hero-banner">
       <div class="stat">${all.length}<span>оголошень зараз</span></div>
