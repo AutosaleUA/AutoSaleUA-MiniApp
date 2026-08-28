@@ -111,7 +111,7 @@ function render() {
   if (path.startsWith("/car/")) {
     renderDetail(path.split("/car/")[1]);
   } else {
-    if (params.get("type") === "rent") state.type = "rent";
+    state.type = params.get("type") === "rent" ? "rent" : "sale";
     renderList();
   }
   window.scrollTo(0, 0);
@@ -178,9 +178,15 @@ function renderList() {
   document.getElementById("backHome").addEventListener("click", () => (location.href = "index.html"));
   document.querySelectorAll(".type-toggle button").forEach((btn) => {
     btn.addEventListener("click", () => {
-      state.type = btn.dataset.type;
+      const newType = btn.dataset.type;
       state.brand = "all"; state.city = "all"; state.sort = "default";
-      render();
+      const newHash = newType === "rent" ? "#/list?type=rent" : "#/list";
+      if (location.hash === newHash) {
+        state.type = newType;
+        render();
+      } else {
+        location.hash = newHash;
+      }
     });
   });
   document.getElementById("fBrand").addEventListener("change", (e) => { state.brand = e.target.value; render(); });
