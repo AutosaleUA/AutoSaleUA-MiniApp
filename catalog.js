@@ -363,8 +363,3 @@ function loadingHtml() {
 async function init() {
   app.innerHTML = loadingHtml();
   ALL_LISTINGS = await loadListings();
-  render();
-}
-
-window.addEventListener("hashchange", render);
-init();
