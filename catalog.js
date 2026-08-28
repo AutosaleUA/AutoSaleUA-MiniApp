@@ -202,14 +202,12 @@ function renderDetail(id) {
       </div>
     </div>
     <div class="detail">
-      <div class="hero" style="background:${thumbBg(item)}">
-        <div class="hero-top">
-          <div class="hero-icon-wrap">${item.photos && item.photos.length ? "" : ICON.car}</div>
-          <div class="verified-chip">${ICON.check} Перевірено</div>
-        </div>
-        <h2>${item.brand} ${item.model}</h2>
-        <div class="year">${ICON.pin.replace("currentColor", "#fff")} ${item.city} · ${item.year} рік</div>
-        <div class="flag-stripe"><span></span><span></span></div>
+      <div class="hero" style="position:relative;overflow:hidden;background:#0b1524;">
+        ${
+          item.photos && item.photos.length
+            ? `<img src="${item.photos[0]}" alt="${item.brand} ${item.model}" style="width:100%;height:100%;display:block;object-fit:contain;background:#0b1524;">`
+            : `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg, ${listingColor(item)}, #06101f)">${ICON.car}</div>`
+        }
       </div>
       <div class="spec-grid">
         <div class="spec"><div class="spec-icon">${ICON.gauge}</div><div><div class="label">Пробіг</div><div class="value">${(Number(item.mileage) || 0).toLocaleString("uk-UA")} км</div></div></div>
@@ -234,7 +232,12 @@ function renderDetail(id) {
 
   document.getElementById("back").addEventListener("click", () => (location.hash = "/list"));
   document.getElementById("contactBtn").addEventListener("click", () => {
-    const url = `https://t.me/${item.seller}`;
+    const username = (item.seller || "").replace(/^@/, "");
+    if (!username || /\s/.test(username)) {
+      alert("У продавця немає юзернейму в Telegram — зв'язатися напряму неможливо.");
+      return;
+    }
+    const url = `https://t.me/${username}`;
     if (tg?.openTelegramLink) tg.openTelegramLink(url); else window.open(url, "_blank");
   });
 }
