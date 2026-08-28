@@ -12,21 +12,47 @@ const app = document.getElementById("app");
 const state = { type: "sale", brand: "all", city: "all", sort: "default" };
 
 const API_BASE = "https://autosaleukrainebot-production.up.railway.app";
+const RENT_API_BASE = "https://autorentua-production.up.railway.app";
 
 let LIVE_LISTINGS = null; // null = ще не завантажено / API вимкнено -> демо-дані
 let usingDemoData = false;
 
+async function fetchFrom(base, defaultType) {
+  const res = await fetch(`${base}/listings`);
+  if (!res.ok) throw new Error("bad response");
+  const data = await res.json();
+  return data.map((item) => ({
+    ...item,
+    id: `${defaultType}-${item.id}`,
+    type: item.type || defaultType,
+  }));
+}
+
 async function loadListings() {
-  if (!API_BASE) { usingDemoData = true; return CAR_LISTINGS; }
+  if (!API_BASE && !RENT_API_BASE) { usingDemoData = true; return CAR_LISTINGS; }
   try {
-    const res = await fetch(`${API_BASE}/listings`);
-    if (!res.ok) throw new Error("bad response");
-    const data = await res.json();
+    const [saleResult, rentResult] = await Promise.allSettled([
+      API_BASE ? fetchFrom(API_BASE, "sale") : Promise.resolve([]),
+      RENT_API_BASE ? fetchFrom(RENT_API_BASE, "rent") : Promise.resolve([]),
+    ]);
+
+    const sale = saleResult.status === "fulfilled" ? saleResult.value : [];
+    const rent = rentResult.status === "fulfilled" ? rentResult.value : [];
+
+    if (saleResult.status === "rejected") {
+      console.warn("AutoSale UA: API продажу недоступний", saleResult.reason);
+    }
+    if (rentResult.status === "rejected") {
+      console.warn("AutoSale UA: API оренди недоступний", rentResult.reason);
+    }
+
+    const combined = [...sale, ...rent];
+    if (!combined.length && saleResult.status === "rejected" && rentResult.status === "rejected") {
+      throw new Error("both APIs unavailable");
+    }
+
     usingDemoData = false;
-    // Поки що бот публікує лише оголошення на продаж — проставляємо
-    // type вручну. Коли зʼявиться бот оренди, він має віддавати
-    // "type":"rent" в тому ж /listings, і цей рядок можна прибрати.
-    return data.map((item) => ({ type: "sale", ...item }));
+    return combined;
   } catch (e) {
     console.warn("AutoSale UA: API недоступний, показую демо-дані", e);
     usingDemoData = true;
@@ -70,7 +96,7 @@ function parseHash() {
 
 function fmtPrice(item) {
   const n = Number(item.price) || 0;
-  return item.type === "rent" ? `$${n.toLocaleString("uk-UA")}/добу` : `$${n.toLocaleString("uk-UA")}`;
+  return item.type === "rent" ? `${n} грн/тиждень` : `$${n}`;
 }
 function fmtMeta(item) {
   const mileage = Number(item.mileage) || 0;
