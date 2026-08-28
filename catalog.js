@@ -108,7 +108,7 @@ function uniqueValues(list, key) { return [...new Set(list.map((i) => i[key]))].
 /* ---------- back button: pill-shaped, same radius/style as the Купити/Орендувати toggle, color-matched to the section ---------- */
 function backButtonHtml(id, type) {
   const color = type === "rent" ? "#4c7d52" : "#3f6a91";
-  return `<button class="iconbtn" id="${id}" aria-label="Назад" style="width:33%;min-width:88px;height:44px;border-radius:999px;background:${color};color:#fff;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;border:none;box-shadow:0 2px 6px rgba(0,0,0,.25);flex-shrink:0;">‹</button>`;
+  return `<button class="iconbtn" id="${id}" aria-label="Назад" style="width:60px;height:38px;border-radius:999px;background:${color};color:#fff;display:flex;align-items:center;justify-content:center;border:none;box-shadow:0 2px 6px rgba(0,0,0,.25);flex-shrink:0;padding:0;"><svg viewBox="0 0 24 24" fill="none" style="width:20px;height:20px;transform:rotate(180deg);"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
 }
 
 let ALL_LISTINGS = [];
