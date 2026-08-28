@@ -11,9 +11,7 @@ if (tg) {
 const app = document.getElementById("app");
 const state = { type: "sale", brand: "all", city: "all", sort: "default" };
 
-// ЗАПОВНІТЬ після деплою API на Railway, наприклад:
-// "https://autosaleua-bot-production.up.railway.app"
-const API_BASE = "";
+const API_BASE = "https://autosaleukrainebot-production.up.railway.app";
 
 let LIVE_LISTINGS = null; // null = ще не завантажено / API вимкнено -> демо-дані
 let usingDemoData = false;
@@ -21,11 +19,14 @@ let usingDemoData = false;
 async function loadListings() {
   if (!API_BASE) { usingDemoData = true; return CAR_LISTINGS; }
   try {
-    const res = await fetch(`${API_BASE}/api/listings`);
+    const res = await fetch(`${API_BASE}/listings`);
     if (!res.ok) throw new Error("bad response");
     const data = await res.json();
     usingDemoData = false;
-    return data.listings || [];
+    // Поки що бот публікує лише оголошення на продаж — проставляємо
+    // type вручну. Коли зʼявиться бот оренди, він має віддавати
+    // "type":"rent" в тому ж /listings, і цей рядок можна прибрати.
+    return data.map((item) => ({ type: "sale", ...item }));
   } catch (e) {
     console.warn("AutoSale UA: API недоступний, показую демо-дані", e);
     usingDemoData = true;
@@ -41,8 +42,8 @@ function listingColor(item) {
 }
 
 function thumbBg(item) {
-  if (API_BASE && item.photos && item.photos.length) {
-    return `url('${API_BASE}${item.photos[0]}') center/cover`;
+  if (item.photos && item.photos.length) {
+    return `url('${item.photos[0]}') center/cover`;
   }
   return `linear-gradient(135deg, ${listingColor(item)}, #06101f)`;
 }
@@ -166,7 +167,7 @@ function renderList() {
 }
 
 function cardHtml(item) {
-  const hasPhoto = API_BASE && item.photos && item.photos.length;
+  const hasPhoto = item.photos && item.photos.length;
   return `
     <button class="card" data-id="${item.id}">
       <div class="thumb" style="background:${thumbBg(item)}">
@@ -203,7 +204,7 @@ function renderDetail(id) {
     <div class="detail">
       <div class="hero" style="background:${thumbBg(item)}">
         <div class="hero-top">
-          <div class="hero-icon-wrap">${API_BASE && item.photos && item.photos.length ? "" : ICON.car}</div>
+          <div class="hero-icon-wrap">${item.photos && item.photos.length ? "" : ICON.car}</div>
           <div class="verified-chip">${ICON.check} Перевірено</div>
         </div>
         <h2>${item.brand} ${item.model}</h2>
