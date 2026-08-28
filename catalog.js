@@ -105,6 +105,12 @@ function fmtMeta(item) {
 }
 function uniqueValues(list, key) { return [...new Set(list.map((i) => i[key]))].sort(); }
 
+/* ---------- back button: pill-shaped, same radius/style as the Купити/Орендувати toggle, color-matched to the section ---------- */
+function backButtonHtml(id, type) {
+  const color = type === "rent" ? "#4c7d52" : "#3f6a91";
+  return `<button class="iconbtn" id="${id}" aria-label="Назад" style="width:33%;min-width:88px;height:44px;border-radius:999px;background:${color};color:#fff;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;border:none;box-shadow:0 2px 6px rgba(0,0,0,.25);flex-shrink:0;">‹</button>`;
+}
+
 let ALL_LISTINGS = [];
 
 function render() {
@@ -140,7 +146,7 @@ function renderList() {
   app.innerHTML = `
     <div class="topbar topbar--${state.type}">
       <div class="topbar-row">
-        <button class="iconbtn" id="backHome" aria-label="Назад" style="width:40px;height:40px;border-radius:50%;background:#ffd166;color:#06101f;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;border:none;box-shadow:0 2px 6px rgba(0,0,0,.25);">‹</button>
+        ${backButtonHtml("backHome", state.type)}
         <h1>Каталог <span class="brand">AutoSale</span> <span class="brand-ua">UA</span><small>${state.type === "rent" ? "Оренда авто" : "Купівля авто"}</small></h1>
       </div>
       <div class="flag-stripe"><span></span><span></span></div>
@@ -304,7 +310,7 @@ function wireGallery() {
 function renderDetail(id) {
   const item = ALL_LISTINGS.find((i) => String(i.id) === String(id));
   if (!item) {
-    app.innerHTML = `<div class="topbar"><div class="topbar-row"><button class="iconbtn" id="back" style="width:40px;height:40px;border-radius:50%;background:#ffd166;color:#06101f;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;border:none;box-shadow:0 2px 6px rgba(0,0,0,.25);">‹</button></div></div><div class="empty">Оголошення не знайдено.</div>`;
+    app.innerHTML = `<div class="topbar"><div class="topbar-row">${backButtonHtml("back", state.type)}</div></div><div class="empty">Оголошення не знайдено.</div>`;
     document.getElementById("back").addEventListener("click", () => (location.hash = "/list"));
     return;
   }
@@ -312,7 +318,7 @@ function renderDetail(id) {
   app.innerHTML = `
     <div class="topbar topbar--${item.type}">
       <div class="topbar-row">
-        <button class="iconbtn" id="back" aria-label="Назад" style="width:40px;height:40px;border-radius:50%;background:#ffd166;color:#06101f;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;border:none;box-shadow:0 2px 6px rgba(0,0,0,.25);">‹</button>
+        ${backButtonHtml("back", item.type)}
         <h1>${item.brand} ${item.model}</h1>
       </div>
     </div>
