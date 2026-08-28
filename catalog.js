@@ -137,14 +137,13 @@ function renderList() {
   const items = getFiltered();
 
   app.innerHTML = `
-    <div class="topbar">
+    <div class="topbar topbar--${state.type}">
       <div class="topbar-row">
         <button class="iconbtn" id="backHome" aria-label="Назад">‹</button>
-        <h1>Каталог AutoSale UA<small>${state.type === "rent" ? "Оренда авто" : "Купівля авто"}</small></h1>
+        <h1>Каталог <span class="brand">AutoSale</span> <span class="brand-ua">UA</span><small>${state.type === "rent" ? "Оренда авто" : "Купівля авто"}</small></h1>
       </div>
     </div>
     <div class="hero-banner">
-      <div class="eyebrow">🇺🇦 AutoSale UA${usingDemoData ? " · демо-дані" : " · перевірені оголошення"}</div>
       <div class="stat">${all.length}<span>оголошень зараз</span></div>
       <div class="sub">Без посередників · реальні авто від власників</div>
       <div class="flag-stripe"><span></span><span></span></div>
@@ -227,7 +226,7 @@ function renderDetail(id) {
   }
 
   app.innerHTML = `
-    <div class="topbar">
+    <div class="topbar topbar--${item.type}">
       <div class="topbar-row">
         <button class="iconbtn" id="back" aria-label="Назад">‹</button>
         <h1>${item.brand} ${item.model}</h1>
