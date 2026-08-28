@@ -10,16 +10,10 @@ if (tg) {
 
 // Реальний бот подачі оголошень про продаж (вже працює й публікує в канал)
 const SELL_BOT_URL = "https://t.me/AutoSaleUkraine_bot";
-
-// Розділи, для яких бот ще не створено — показуємо акуратне повідомлення
-function comingSoon(title) {
-  const msg = `Розділ «${title}» ще в розробці. Скоро тут з'явиться бот для подачі заявки.`;
-  if (tg?.showPopup) {
-    tg.showPopup({ title: "Незабаром", message: msg, buttons: [{ type: "ok" }] });
-  } else {
-    alert(msg);
-  }
-}
+// Реальний бот подачі оголошень про оренду (deep-link одразу відкриває анкету)
+const RENT_SELL_BOT_URL = "https://t.me/AutoRentUkraine_bot?start=sell";
+// Реальний бот подачі заявки на страхування
+const INSURANCE_BOT_URL = "https://t.me/AutoInsureUkraine_bot";
 
 function openExternal(url) {
   if (tg?.openTelegramLink) {
@@ -43,10 +37,10 @@ function openSection(name) {
       openExternal(SELL_BOT_URL);
       break;
     case "give-rent":
-      comingSoon("Здати авто в оренду");
+      openExternal(RENT_SELL_BOT_URL);
       break;
     case "insurance":
-      comingSoon("Страхування авто");
+      openExternal(INSURANCE_BOT_URL);
       break;
     default:
       console.log("AutoSale UA section:", name);
