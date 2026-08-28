@@ -140,7 +140,7 @@ function renderList() {
   app.innerHTML = `
     <div class="topbar topbar--${state.type}">
       <div class="topbar-row">
-        <button class="iconbtn" id="backHome" aria-label="Назад">‹</button>
+        <button class="iconbtn" id="backHome" aria-label="Назад" style="width:40px;height:40px;border-radius:50%;background:#ffd166;color:#06101f;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;border:none;box-shadow:0 2px 6px rgba(0,0,0,.25);">‹</button>
         <h1>Каталог <span class="brand">AutoSale</span> <span class="brand-ua">UA</span><small>${state.type === "rent" ? "Оренда авто" : "Купівля авто"}</small></h1>
       </div>
       <div class="flag-stripe"><span></span><span></span></div>
@@ -304,7 +304,7 @@ function wireGallery() {
 function renderDetail(id) {
   const item = ALL_LISTINGS.find((i) => String(i.id) === String(id));
   if (!item) {
-    app.innerHTML = `<div class="topbar"><div class="topbar-row"><button class="iconbtn" id="back">‹</button><h1>Оголошення</h1></div></div><div class="empty">Оголошення не знайдено.</div>`;
+    app.innerHTML = `<div class="topbar"><div class="topbar-row"><button class="iconbtn" id="back" style="width:40px;height:40px;border-radius:50%;background:#ffd166;color:#06101f;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;border:none;box-shadow:0 2px 6px rgba(0,0,0,.25);">‹</button></div></div><div class="empty">Оголошення не знайдено.</div>`;
     document.getElementById("back").addEventListener("click", () => (location.hash = "/list"));
     return;
   }
@@ -312,7 +312,7 @@ function renderDetail(id) {
   app.innerHTML = `
     <div class="topbar topbar--${item.type}">
       <div class="topbar-row">
-        <button class="iconbtn" id="back" aria-label="Назад">‹</button>
+        <button class="iconbtn" id="back" aria-label="Назад" style="width:40px;height:40px;border-radius:50%;background:#ffd166;color:#06101f;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;border:none;box-shadow:0 2px 6px rgba(0,0,0,.25);">‹</button>
         <h1>${item.brand} ${item.model}</h1>
       </div>
     </div>
@@ -363,3 +363,8 @@ function loadingHtml() {
 async function init() {
   app.innerHTML = loadingHtml();
   ALL_LISTINGS = await loadListings();
+  render();
+}
+
+window.addEventListener("hashchange", render);
+init();
