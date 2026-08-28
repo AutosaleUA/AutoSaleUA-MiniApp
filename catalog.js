@@ -84,7 +84,8 @@ const ICON = {
   fuel: `<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="4" width="9" height="16" rx="1.6" stroke="#0a36c9" stroke-width="1.6"/><path d="M14 9h2a2 2 0 0 1 2 2v4.5a1.5 1.5 0 0 0 3 0V9l-2-2.5" stroke="#0a36c9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   calendar: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5.5" width="16" height="14.5" rx="2" stroke="#0a36c9" stroke-width="1.6"/><path d="M4 10h16M8 3.5v3M16 3.5v3" stroke="#0a36c9" stroke-width="1.6" stroke-linecap="round"/></svg>`,
   pin: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-6.5-6-6.5-11A6.5 6.5 0 0 1 18.5 10c0 5-6.5 11-6.5 11Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.2" stroke="currentColor" stroke-width="1.6"/></svg>`,
-  empty: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 16.5V12l1.6-4.5A2 2 0 0 1 7.5 6h9a2 2 0 0 1 1.9 1.5L20 12v4.5" stroke="#8b97a5" stroke-width="1.4" stroke-linejoin="round"/><rect x="3" y="16" width="18" height="3.4" rx="1.4" fill="#8b97a5"/><path d="M2 2l20 20" stroke="#8b97a5" stroke-width="1.4"/></svg>`
+  empty: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 16.5V12l1.6-4.5A2 2 0 0 1 7.5 6h9a2 2 0 0 1 1.9 1.5L20 12v4.5" stroke="#8b97a5" stroke-width="1.4" stroke-linejoin="round"/><rect x="3" y="16" width="18" height="3.4" rx="1.4" fill="#8b97a5"/><path d="M2 2l20 20" stroke="#8b97a5" stroke-width="1.4"/></svg>`,
+  chevron: `<svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 };
 
 function parseHash() {
@@ -218,6 +219,88 @@ function cardHtml(item) {
   `;
 }
 
+/* ---------- photo gallery (detail view) ---------- */
+const MAX_GALLERY_PHOTOS = 5;
+let galleryIndex = 0;
+let galleryPhotos = [];
+
+function galleryHtml(item) {
+  galleryPhotos = (item.photos || []).slice(0, MAX_GALLERY_PHOTOS);
+  galleryIndex = 0;
+
+  if (!galleryPhotos.length) {
+    return `<div class="hero" style="position:relative;overflow:hidden;background:#0b1524;">
+      <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg, ${listingColor(item)}, #06101f)">${ICON.car}</div>
+    </div>`;
+  }
+
+  const multi = galleryPhotos.length > 1;
+
+  return `
+    <div class="hero" id="heroWrap" style="position:relative;overflow:hidden;background:#0b1524;">
+      <img id="heroImg" src="${galleryPhotos[0]}" alt="${item.brand} ${item.model}" style="width:100%;height:100%;display:block;object-fit:contain;background:#0b1524;">
+      ${multi ? `
+        <button id="prevPhoto" aria-label="Попереднє фото" style="position:absolute;left:6px;top:50%;transform:translateY(-50%) rotate(180deg);width:34px;height:34px;border:none;border-radius:50%;background:rgba(6,16,31,.55);display:flex;align-items:center;justify-content:center;">${ICON.chevron}</button>
+        <button id="nextPhoto" aria-label="Наступне фото" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:none;border-radius:50%;background:rgba(6,16,31,.55);display:flex;align-items:center;justify-content:center;">${ICON.chevron}</button>
+        <div id="photoCounter" style="position:absolute;top:8px;right:8px;background:rgba(6,16,31,.6);color:#fff;font-size:12px;padding:2px 8px;border-radius:10px;">1/${galleryPhotos.length}</div>
+        <div id="photoDots" style="position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:6px;">
+          ${galleryPhotos.map((_, i) => `<span class="dot" data-i="${i}" style="width:7px;height:7px;border-radius:50%;background:${i === 0 ? "#fff" : "rgba(255,255,255,.4)"};"></span>`).join("")}
+        </div>
+      ` : ""}
+    </div>
+    ${multi ? `
+      <div id="thumbStrip" style="display:flex;gap:6px;padding:8px 0;overflow-x:auto;">
+        ${galleryPhotos.map((p, i) => `<img data-i="${i}" src="${p}" style="flex:0 0 auto;width:56px;height:42px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:${i === 0 ? "1" : ".6"};border:2px solid ${i === 0 ? "#0956f5" : "transparent"};">`).join("")}
+      </div>
+    ` : ""}
+  `;
+}
+
+function setGalleryIndex(i) {
+  if (!galleryPhotos.length) return;
+  galleryIndex = (i + galleryPhotos.length) % galleryPhotos.length;
+
+  const img = document.getElementById("heroImg");
+  if (img) img.src = galleryPhotos[galleryIndex];
+
+  const counter = document.getElementById("photoCounter");
+  if (counter) counter.textContent = `${galleryIndex + 1}/${galleryPhotos.length}`;
+
+  document.querySelectorAll("#photoDots .dot").forEach((dot, i2) => {
+    dot.style.background = i2 === galleryIndex ? "#fff" : "rgba(255,255,255,.4)";
+  });
+  document.querySelectorAll("#thumbStrip img").forEach((t, i2) => {
+    t.style.opacity = i2 === galleryIndex ? "1" : ".6";
+    t.style.border = `2px solid ${i2 === galleryIndex ? "#0956f5" : "transparent"}`;
+  });
+}
+
+function wireGallery() {
+  if (galleryPhotos.length <= 1) return;
+
+  document.getElementById("prevPhoto")?.addEventListener("click", () => setGalleryIndex(galleryIndex - 1));
+  document.getElementById("nextPhoto")?.addEventListener("click", () => setGalleryIndex(galleryIndex + 1));
+  document.querySelectorAll("#photoDots .dot").forEach((dot) => {
+    dot.addEventListener("click", () => setGalleryIndex(Number(dot.dataset.i)));
+  });
+  document.querySelectorAll("#thumbStrip img").forEach((thumb) => {
+    thumb.addEventListener("click", () => setGalleryIndex(Number(thumb.dataset.i)));
+  });
+
+  // swipe support
+  const wrap = document.getElementById("heroWrap");
+  if (wrap) {
+    let startX = null;
+    wrap.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    wrap.addEventListener("touchend", (e) => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) setGalleryIndex(galleryIndex + (dx < 0 ? 1 : -1));
+      startX = null;
+    });
+  }
+}
+
 function renderDetail(id) {
   const item = ALL_LISTINGS.find((i) => String(i.id) === String(id));
   if (!item) {
@@ -233,14 +316,8 @@ function renderDetail(id) {
         <h1>${item.brand} ${item.model}</h1>
       </div>
     </div>
+    ${galleryHtml(item)}
     <div class="detail">
-      <div class="hero" style="position:relative;overflow:hidden;background:#0b1524;">
-        ${
-          item.photos && item.photos.length
-            ? `<img src="${item.photos[0]}" alt="${item.brand} ${item.model}" style="width:100%;height:100%;display:block;object-fit:contain;background:#0b1524;">`
-            : `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg, ${listingColor(item)}, #06101f)">${ICON.car}</div>`
-        }
-      </div>
       <div class="spec-grid">
         <div class="spec"><div class="spec-icon">${ICON.gauge}</div><div><div class="label">Пробіг</div><div class="value">${(Number(item.mileage) || 0).toLocaleString("uk-UA")} км</div></div></div>
         <div class="spec"><div class="spec-icon">${ICON.gear}</div><div><div class="label">Коробка</div><div class="value">${item.transmission}</div></div></div>
@@ -272,6 +349,8 @@ function renderDetail(id) {
     const url = `https://t.me/${username}`;
     if (tg?.openTelegramLink) tg.openTelegramLink(url); else window.open(url, "_blank");
   });
+
+  wireGallery();
 }
 
 function loadingHtml() {
