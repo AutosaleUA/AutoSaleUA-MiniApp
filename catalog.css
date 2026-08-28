@@ -1,7 +1,20 @@
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;min-height:100%;background:#eef3f9}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#0b1220;-webkit-font-smoothing:antialiased}
-.wrap{max-width:640px;margin:0 auto;min-height:100vh;background:#eef3f9;padding-bottom:36px}
+html,body{margin:0;padding:0;width:100%;min-height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:#0b1220;-webkit-font-smoothing:antialiased;
+  background-color:#eef3f9;
+  background-image:
+    radial-gradient(circle at 8% 4%, rgba(15,107,255,.10), transparent 32%),
+    radial-gradient(circle at 96% 2%, rgba(255,210,63,.14), transparent 30%),
+    radial-gradient(circle at 100% 60%, rgba(15,107,255,.07), transparent 40%),
+    radial-gradient(circle at 0% 90%, rgba(255,210,63,.08), transparent 38%),
+    radial-gradient(rgba(11,54,201,.07) 1px, transparent 1px);
+  background-size:auto,auto,auto,auto,22px 22px;
+  background-attachment:fixed;
+  background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,repeat;
+}
+.wrap{max-width:640px;margin:0 auto;min-height:100vh;padding-bottom:36px}
 
 /* Flag accent used across screens */
 .flag-stripe{height:3px;display:flex;border-radius:3px;overflow:hidden}
@@ -19,7 +32,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;co
 
 /* Hero banner under header */
 .hero-banner{margin:0 14px 14px;border-radius:18px;padding:16px 16px 18px;position:relative;overflow:hidden;
-  background:radial-gradient(120% 140% at 0% 0%, #1a3a8f 0%, #0a1a3d 55%, #06101f 100%);color:#fff}
+  background:radial-gradient(120% 140% at 0% 0%, #1a3a8f 0%, #0a1a3d 55%, #06101f 100%);color:#fff;
+  box-shadow:0 14px 30px rgba(6,16,31,.20)}
 .hero-banner::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;
   background:radial-gradient(circle, rgba(255,210,63,.22), transparent 70%)}
 .hero-banner .eyebrow{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;opacity:.75;margin-bottom:6px}
